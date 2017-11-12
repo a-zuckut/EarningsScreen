@@ -39,6 +39,17 @@ public class Data {
 	// http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=NASDAQ&render=download
 	// http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=NYSE&render=download
 	
+	// Other stock lists: https://stooq.com/db/h/
+	
+	// STOCK LIST NASDAQ: https://stooq.com/db/l/?g=27
+	// STOCK LIST NYSE: https://stooq.com/db/l/?g=28
+	
+	// HISTORICAL DATA: https://stooq.com/q/d/l/?s=on.us&d1=20160323&d2=20160610
+	// FORMAT:
+	/*
+	 * https://stooq.com/q/d/l/?s=${symbol}.us&d1=${yyyyMMdd}&d2=${yyyyMMdd}
+	 */
+	
 
 	public static Map<String, ArrayList<String>> SECTORS = new HashMap<>(); // <String, ArrayList<String>> = Sector: Stocks in sector
 	public static Map<String, ArrayList<String>> SUBSECTORS = new HashMap<>(); // <String, ArrayList<String>> = Subsector: Stocks in subsector
@@ -57,7 +68,6 @@ public class Data {
 			ArrayList<String[]> data = new ArrayList<>();
 			String x = null;
 			while ((x = in.readLine()) != null) {
-				System.out.println(x);
 				data.add(replace("\"", x.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
 			}
 
