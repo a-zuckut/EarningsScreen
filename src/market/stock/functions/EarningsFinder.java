@@ -85,8 +85,16 @@ public class EarningsFinder {
 		fos.close();
 		System.out.println("Map<String, Date[]> stored -> EARNINGS");
 	}
-
+	
+	/**
+	 * DEFAULT LOOK AT FILES (lowest order notation (potentially) )
+	 * @return
+	 */
 	public Date[] getEarningsDates() {
+		return getEarningsDates(true);
+	}
+
+	public Date[] getEarningsDates(boolean LOOK_AT_FILE) {
 		if (html == null) {
 			if (!getHtml()) {
 				if (x.containsKey(STOCK)) {
@@ -95,6 +103,13 @@ public class EarningsFinder {
 				}
 				System.out.println("Error: could not obtain dates for " + STOCK);
 				return new Date[0];
+			}
+		}
+		
+		if(LOOK_AT_FILE) {
+			if(x.containsKey(STOCK)) {
+				System.out.println("Got " + STOCK + " data from file");
+				return x.get(STOCK); // returns stored data
 			}
 		}
 
@@ -112,6 +127,10 @@ public class EarningsFinder {
 		// REGEX FOR ZACKS THAT COULD THEORETICALLY WORK: (1?[0-9]\/[0-9][0-9]\/20[0-1][5-8])
 
 		Date[] ret = new Date[allMatches.size()];
+		if(ret.length < 1) {
+			System.out.println("Error: could not obtain dates for " + STOCK);
+			return ret;
+		}
 
 		SimpleDateFormat format = new SimpleDateFormat("MMM dd/ yyyy/ hh aa");
 		int i = 0;
