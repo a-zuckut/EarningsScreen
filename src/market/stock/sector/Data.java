@@ -270,7 +270,18 @@ public class Data {
 			case "0":
 				obtain_date_correlating_price_data();
 				break;
+			case "s":
+			case "sector":
+			case "slist":
+			case "list sector":
+			case "list s":
+			case "lists":
+				for(String s:SECTORS.keySet()) {
+					System.out.println("Sector: " + s + " " + SECTORS.get(s).size());
+				}
+				break;
 			case "histp":
+				System.out.println(DatePrices.DATE_TO_PRICE.size());
 				print_to_file(DatePrices.DATE_TO_PRICE.toString(), "src/market/stock/sector/print/HistoricalPrices.txt");
 				break;
 			}
@@ -280,6 +291,11 @@ public class Data {
 		scanner.close();
 	}
 
+	/**
+	 * Prints the first input to the File given by the second input
+	 * @param string String that is to printed to given file name
+	 * @param string2 File
+	 */
 	private static void print_to_file(String string, String string2) {
 		try {
 			PrintWriter out = new PrintWriter(string2);
@@ -372,8 +388,6 @@ public class Data {
 		}
 		
 		DatePrices.DATE_TO_PRICE = ret;
-		STORE_ALL();
-		
 		
 	}
 
