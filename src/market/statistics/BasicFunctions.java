@@ -3,6 +3,8 @@ package market.statistics;
 import java.util.ArrayList;
 import java.util.Date;
 
+import market.stock.index.IndexData;
+
 public class BasicFunctions {
 
 	/**
@@ -16,12 +18,21 @@ public class BasicFunctions {
 		double[] ret = new double[p.length - 1];
 		
 		for(int i = 1; i < p.length; i++) {
-			ret[i-1] = p[i]/p[i-1] - 1;
+			ret[i-1] = (p[i]/p[i-1] - 1) - (indices(d[i])/indices(d[i-1]) - 1); // TODO: subtract out the index return correlating with week d[i-1] to d[i]
 		}
 		
 		return ret;
 	}
 	
+	private static double indices(Date date) {
+		// GOES INTO IndexData
+//		double price = IndexData.dow_jones.get(date);
+//		double price3 = IndexData.nasdaq.get(date);
+		double price2 = IndexData.s_and_p500.get(date);
+		
+		return price2;
+	}
+
 	/**
 	 * d, p MUST BE LENGTH >= 1
 	 */
@@ -49,7 +60,7 @@ public class BasicFunctions {
 	public static String toStringDoubleArrayReturns(double[] returns) {
 		String x = "";
 		for(double i : returns) {
-			x += String.format("%8.5f\t", i);
+			x += String.format("%8.2f\t", i*100);
 		}
 		return x;
 	}
@@ -80,7 +91,7 @@ public class BasicFunctions {
 		}
 		
 		for(int i = 0; i < average.length; i++) {
-			average[i] = 100*(average[i]/(double) size);
+			average[i] = (average[i]/(double) size);
 		}
 		
 		return average;

@@ -74,5 +74,7 @@ public class IndexData {
 	private static void update(File file, String url) {
 		// UPDATE FILE WITH URL OF INDEX (STORE WITH <Date, Double> // price correlating with a date
 	}
+	
+	// TODO: have all dates of index that correlate with dates of stocks
 
 }
