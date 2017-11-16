@@ -8,6 +8,9 @@ import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import market.statistics.BasicFunctions;
 
 public class DatePrices {
 
@@ -42,6 +45,19 @@ public class DatePrices {
 		oos.close();
 		fos.close();
 		System.out.println("Map<String, Date[]> stored -> EARNINGS");
+	}
+
+	public static String printPrices() {
+		String x = "";
+		
+		for(Map<Date[], Double[]> m : DATE_TO_PRICE.values()) {
+			for(Double[] d : m.values()) {
+				if(d != null)
+					x += BasicFunctions.toStringDoubleArrayPrices(Stream.of(d).mapToDouble(Double::doubleValue).toArray()) + "\n";
+			}
+		}
+		
+		return x;
 	}
 	
 }

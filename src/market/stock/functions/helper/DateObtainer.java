@@ -70,7 +70,7 @@ public class DateObtainer {
 			c.add(Calendar.DATE, -7); 	// +1 weeks
 			ret[index--] = c.getTime();
 			c.add(Calendar.DATE, -7); 	// 0 weeks
-			ret[index--] = c.getTime();
+			ret[index--] = c.getTime(); // THIS ONE IS THING
 			c.add(Calendar.DATE, -7); 	// -1 weeks
 			ret[index--] = c.getTime();
 			c.add(Calendar.DATE, -7); 	// -2 weeks

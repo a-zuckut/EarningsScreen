@@ -21,11 +21,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import market.statistics.BasicFunctions;
 import market.stock.functions.EarningsFinder;
 import market.stock.functions.GetHistoricalPrices;
 import market.stock.functions.helper.DateObtainer;
 import market.stock.functions.helper.DatePrices;
 import market.stock.functions.helper.Errors;
+import market.stock.index.IndexData;
 
 public class Data {
 	private static final SimpleDateFormat defaultFormat = new SimpleDateFormat("MMM/dd/yy");
@@ -81,7 +83,7 @@ public class Data {
 			 * Sector 7: Industry 8: Summary Quote
 			 */
 
-			// log(data.get(0));
+			IndexData.updateIndices();
 
 			// FIRST ADD SECTORS
 			for (int i = 1; i < data.size(); i++) {
@@ -240,7 +242,6 @@ public class Data {
 
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		System.out.println("1: Sector, 2: Subsector, 3: Individual Stock, RANDOM: store, exit: exit");
 		while (!(input = scanner.nextLine()).equals("exit")) {
 			switch (input.trim()) {
 			case "all":
@@ -276,25 +277,64 @@ public class Data {
 			case "list sector":
 			case "list s":
 			case "lists":
-				for(String s:SECTORS.keySet()) {
+				// FOR LISTING SECTORS
+				for (String s : SECTORS.keySet()) {
 					System.out.println("Sector: " + s + " " + SECTORS.get(s).size());
 				}
 				break;
+			case "ss":
+			case "subsector":
+			case "list subsector":
+			case "list ss":
+			case "listss":
+				// FOR LISTING SUBSECTORS
+				for (String s : SUBSECTORS.keySet()) {
+					System.out.println("Subsector: " + s + " " + SUBSECTORS.get(s).size());
+				}
 			case "histp":
 				System.out.println(DatePrices.DATE_TO_PRICE.size());
-				print_to_file(DatePrices.DATE_TO_PRICE.toString(), "src/market/stock/sector/print/HistoricalPrices.txt");
+				print_to_file(DatePrices.printPrices(),
+						"src/market/stock/sector/print/HistoricalPrices.txt");
 				break;
+			case "5": // THIS WILL BE PRINTING A SPECIFIC SECTOR'S RETURNS TO A FILE
+				System.out.println("Input a sector: ");
+				String sectorR = scanner.nextLine().trim();
+				ArrayList<String> dataSR = Data.SECTORS.get(sectorR);
+				if(dataSR == null) {
+					System.out.println("Invalid Sector");
+					break;
+				}
+				String result = printReturnsForSector(sectorR);
+				print_to_file(result, "src/market/stock/sector/print/" + sectorR.replace(" ", "_") + "_returns.txt");
+				break;
+			case "r":
+			case "rc":
+			case "returns":
+			case "print returns":
+			case "print r":
+				print_to_file(print_returns_for_all_data(false),
+						"src/market/stock/sector/print/RETURNS_CUMULATIVE.txt");
+				break;
+			case "rp":
+				print_to_file(print_returns_for_all_data(true), "src/market/stock/sector/print/RETURNS_PERIODIC.txt");
+				break;
+			case "help":
+			case "h":
+				System.out.println("MAKE A HELP SLIDE ");
 			}
 			STORE_ALL();
-			System.out.println("DONE\n\n" + "1: Sector, 2: Subsector, 3: Individual Stock, exit: exit");
+			System.out.println("--------------------------------------------------------------------------------------------------------------\n");
 		}
 		scanner.close();
 	}
 
 	/**
 	 * Prints the first input to the File given by the second input
-	 * @param string String that is to printed to given file name
-	 * @param string2 File
+	 * 
+	 * @param string
+	 *            String that is to printed to given file name
+	 * @param string2
+	 *            File
 	 */
 	private static void print_to_file(String string, String string2) {
 		try {
@@ -386,9 +426,68 @@ public class Data {
 				ret.get(sym).put(obt, x);
 			}
 		}
-		
+
 		DatePrices.DATE_TO_PRICE = ret;
+
+	}
+
+	public static String print_returns_for_all_data(boolean periodic) {
+		ArrayList<double[]> returnsAL = new ArrayList<>();
+
+		String ret = String.format("%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t\n", "", "", "", "", "", "",
+				"EARNINGS", "", "", "", "");
+
+		for (Map<Date[], Double[]> x : DatePrices.DATE_TO_PRICE.values()) {
+			for (Date[] dates : x.keySet()) {
+				Double[] d = x.get(dates);
+				double[] returns = null;
+				if (periodic)
+					returns = BasicFunctions.printReturnsPerTimePeriod(d, dates);
+				else
+					returns = BasicFunctions.printReturnsCumulativePeriod(d, dates);
+				if (returns != null) {
+					returnsAL.add(returns);
+					String y = BasicFunctions.toStringDoubleArrayReturns(returns);
+					ret += y + "\n"; // PRINTING OUT (adding to string)
+				}
+			}
+		}
+
+		ret += "--------------------------------------------------------------------------------------------------------------\n";
+		double[] average = BasicFunctions.averageArrayListOfDoubles(returnsAL);
+		String average_string = BasicFunctions.toStringDoubleArrayReturns(average);
+		ret += average_string;
+
+		return ret;
+	}
+	
+	public static String printReturnsForSector(String sector) {
+		ArrayList<double[]> returnsAL = new ArrayList<>();
+
+		String ret = String.format("%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\t\n", "", "", "", "", "", "",
+				"EARNINGS", "", "", "", "");
+
+		ArrayList<String> sym = SECTORS.get(sector);
+		for(String symbol : sym) {
+			Map<Date[], Double[]> x = DatePrices.DATE_TO_PRICE.get(symbol);
+			if(x == null) continue;
+			for (Date[] dates : x.keySet()) {
+				Double[] d = x.get(dates);
+				double[] returns = BasicFunctions.printReturnsPerTimePeriod(d, dates);
+				if (returns != null) {
+					String y = BasicFunctions.toStringDoubleArrayReturns(returns);
+					ret += y + "\n"; // PRINTING OUT (adding to string)
+					returnsAL.add(returns);
+				}
+			}
+		}
 		
+		ret += "--------------------------------------------------------------------------------------------------------------\n";
+		double[] average = BasicFunctions.averageArrayListOfDoubles(returnsAL);
+		String average_string = BasicFunctions.toStringDoubleArrayReturns(average);
+		ret += average_string;
+		
+		return ret;
 	}
 
 	public static void STORE_ALL() {
@@ -398,6 +497,7 @@ public class Data {
 			storeMapFileDouble(PREV_CLOSE, PREV_CLOSE_FILE);
 			DatePrices.storeMapFile();
 			storeDate(UPDATE);
+			IndexData.storeIndices();
 			GetHistoricalPrices.storeMapFile();
 			EarningsFinder.storeMapFile();
 			Errors.PRINT_ERRORS();
@@ -411,11 +511,8 @@ public class Data {
 	 * "obtained data") - create a HashMap for <Symbol, Date[]>. have that - go
 	 * through that HashMap and online print those
 	 * 
-	 * TODO: Turn price data into weekly return and cumulative returns TODO: Turn
-	 * index data into weekly return and cumulative returns TODO: Subtract index
-	 * returns to individual price returns
-	 * 
-	 * cumulative returns = (PREVIOUS_CUMULATIVE_RETURN*CURRENT_RETURN) (at end -1)
+	 * TODO: Turn index data into weekly return and cumulative returns
+	 * TODO: Subtract index returns to individual price returns
 	 */
 
 }
