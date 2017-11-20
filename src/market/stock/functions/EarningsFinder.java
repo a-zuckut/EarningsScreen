@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import market.stock.earnings.HistoricalDateScrapper;
 import market.stock.sector.Data;
 
 public class EarningsFinder {
@@ -95,6 +96,9 @@ public class EarningsFinder {
 	}
 
 	public Date[] getEarningsDates(boolean LOOK_AT_FILE) {
+		if(HistoricalDateScrapper.datesOfEarnings.containsKey(STOCK)) {
+			return toArray(HistoricalDateScrapper.datesOfEarnings.get(STOCK));
+		}
 		if (html == null) {
 			if (!getHtml()) {
 				if (x.containsKey(STOCK)) {
@@ -144,6 +148,11 @@ public class EarningsFinder {
 
 		x.put(STOCK, ret);
 		return ret;
+	}
+
+	private Date[] toArray(ArrayList<Date> arrayList) {
+		Date[] dates = new Date[arrayList.size()];
+		return arrayList.toArray(dates);
 	}
 
 	// returns false if couldn't getHtml

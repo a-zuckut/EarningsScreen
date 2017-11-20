@@ -336,7 +336,7 @@ public class Data {
 	 * @param string2
 	 *            File
 	 */
-	private static void print_to_file(String string, String string2) {
+	public static void print_to_file(String string, String string2) {
 		try {
 			PrintWriter out = new PrintWriter(string2);
 			out.println(string);
@@ -513,6 +513,8 @@ public class Data {
 	 * 
 	 * TODO: Turn index data into weekly return and cumulative returns
 	 * TODO: Subtract index returns to individual price returns
+	 * 
+	 * TODO: CREATE A CONSTANTS.java repository for hashmaps and such
 	 */
 
 }

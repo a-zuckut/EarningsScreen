@@ -18,14 +18,25 @@ public class BasicFunctions {
 		double[] ret = new double[p.length - 1];
 		
 		for(int i = 1; i < p.length; i++) {
-			ret[i-1] = (p[i]/p[i-1] - 1) - (indices(d[i])/indices(d[i-1]) - 1); // TODO: subtract out the index return correlating with week d[i-1] to d[i]
+			ret[i-1] = (p[i]/p[i-1] - 1) - 1;
 		}
 		
 		return ret;
 	}
 	
-	private static double indices(Date date) {
-		// GOES INTO IndexData
+	public static double[] determinePerDateReturnsMinusIndexReturns(Date[] d, Double[] p) {
+		if(p == null) return null;
+		double[] ret = new double[p.length - 1];
+		
+		for(int i = 1; i < p.length; i++) {
+			ret[i-1] = (p[i]/p[i-1] - 1) - (indices(d[i])/indices(d[i-1]) - 1);
+		}
+		
+		return ret;
+	}
+	
+	public static double indices(Date date) {
+		// Gets data from IndexData.class
 //		double price = IndexData.dow_jones.get(date);
 //		double price3 = IndexData.nasdaq.get(date);
 		double price2 = IndexData.s_and_p500.get(date);

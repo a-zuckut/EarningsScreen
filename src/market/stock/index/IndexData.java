@@ -1,10 +1,15 @@
 package market.stock.index;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,13 +71,25 @@ public class IndexData {
 	}
 
 	public static void updateIndices() {
-		update(nasdaq_hashmap_date_to_price, "");
-		update(s_p500_hashmap_date_to_price, "");
-		update(dow_jones_hashmap_date_to_price, "");
+		update(nasdaq_hashmap_date_to_price, "https://stooq.com/q/d/l/?s=^ndq", nasdaq);
+		update(s_p500_hashmap_date_to_price, "https://stooq.com/q/d/l/?s=^spx&i=d", s_and_p500);
+		update(dow_jones_hashmap_date_to_price, "https://stooq.com/q/d/l/?s=^dji&i=d", dow_jones);
 	}
 
-	private static void update(File file, String url) {
+	private static void update(File file, String url, Map<Date, Double> m) {
 		// UPDATE FILE WITH URL OF INDEX (STORE WITH <Date, Double> // price correlating with a date
+//		try {
+//			URL urlIndex = new URL(url);
+//			BufferedReader in = new BufferedReader(new InputStreamReader(urlIndex.openStream()));
+//			ArrayList<String[]> data = new ArrayList<>();
+//			String x = null;
+//			while ((x = in.readLine()) != null) {
+//				data.add(x.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
+//			}
+//			System.out.println(data.get(0).toString());
+//		} catch (Exception e) {
+//			System.out.println("FAILED LIFE");
+//		}
 	}
 	
 	// TODO: have all dates of index that correlate with dates of stocks

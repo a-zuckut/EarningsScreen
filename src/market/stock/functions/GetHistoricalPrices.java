@@ -130,6 +130,7 @@ public class GetHistoricalPrices {
 			ret[i] = data.get(format.format(date));
 			int incr = -1;
 			while (ret[i] == null) {
+				// GOOD IMPROVEMENT - FIND THE NEAREST DATE FROM THE data MAP THAT EXISTS
 				Calendar c = Calendar.getInstance();
 				c.setTime(date);
 				c.add(Calendar.DATE, incr);
