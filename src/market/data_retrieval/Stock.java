@@ -31,5 +31,13 @@ public class Stock {
 		this.annual_eps_estimate = annual_eps_estimate;
 		this.mean_recommendation = mean_recommendation;
 	}
+	
+	@Override
+	public String toString() {
+		return "STOCK: " + symbol + " in industry: " + industry + "\n"
+				+ "Price: " + current_price + " with recommendation of " + mean_recommendation + "\n"
+				+ "Data: PE: " + pe + " FORWARD PE: " + forward_pe + " EPS: " + eps + " PEG: " + peg + "\n"
+				+ "Beta: " + beta + " Annual EPS: " + annual_eps_estimate + "\n"; 
+	}
 
 }
