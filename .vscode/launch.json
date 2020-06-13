@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestUrlData<StockDataRetriever>",
+            "request": "launch",
+            "mainClass": "TestUrlData",
+            "projectName": "StockDataRetriever"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StockData<StockDataRetriever>",
+            "request": "launch",
+            "mainClass": "market.data_retrieval.StockData",
+            "projectName": "StockDataRetriever"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HistoricalDateScrapper<StockDataRetriever>",
+            "request": "launch",
+            "mainClass": "market.stock.earnings.HistoricalDateScrapper",
+            "projectName": "StockDataRetriever"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Data<StockDataRetriever>",
+            "request": "launch",
+            "mainClass": "market.stock.sector.Data",
+            "projectName": "StockDataRetriever"
+        }
+    ]
+}

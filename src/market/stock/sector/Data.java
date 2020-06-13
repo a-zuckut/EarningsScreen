@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import market.data_retrieval.Stock;
+import market.data_retrieval.StockData;
 import market.statistics.BasicFunctions;
 import market.stock.functions.EarningsFinder;
 import market.stock.functions.GetHistoricalPrices;
@@ -38,23 +40,12 @@ public class Data {
 	private static final File PREV_CLOSE_FILE = new File("src/market/stock/sector/data/prev_close.txt");
 	private static final File SUBSECTOR_FILE = new File("src/market/stock/sector/data/subsector.txt");
 
-	public static final String STOCKS = "http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=NASDAQ&render=download";
-	// public static final String STOCKS =
-	// "http://www.nasdaq.com/screening/companies-by-industry.aspx?render=download";
-	// probably only want to do:
-	// http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=NASDAQ&render=download
-	// http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=NYSE&render=download
+	public static final String STOCKS = "https://old.nasdaq.com/screening/companies-by-industry.aspx?render=download";
 
 	// Other stock lists: https://stooq.com/db/h/
 
 	// STOCK LIST NASDAQ: https://stooq.com/db/l/?g=27
 	// STOCK LIST NYSE: https://stooq.com/db/l/?g=28
-
-	// HISTORICAL DATA: https://stooq.com/q/d/l/?s=on.us&d1=20160323&d2=20160610
-	// FORMAT:
-	/*
-	 * https://stooq.com/q/d/l/?s=${symbol}.us&d1=${yyyyMMdd}&d2=${yyyyMMdd}
-	 */
 
 	public static Map<String, ArrayList<String>> SECTORS = new HashMap<>(); // <String, ArrayList<String>> = Sector:
 																			// Stocks in sector
@@ -69,7 +60,7 @@ public class Data {
 
 		try {
 			if (!update())
-				throw new Exception("Don't reinitialize");
+				throw new AssertionError("Don't reinitialize");
 			URL stockURL = new URL(STOCKS);
 			BufferedReader in = new BufferedReader(new InputStreamReader(stockURL.openStream()));
 			ArrayList<String[]> data = new ArrayList<>();
@@ -78,14 +69,18 @@ public class Data {
 				data.add(replace("\"", x.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
 			}
 
+			System.out.println(data.size());
+
 			/*
 			 * data: 0: Symbol 1: Name 2: LastSale 3: MarketCap 4: ADR TSO 5: IPOyear 6:
 			 * Sector 7: Industry 8: Summary Quote
 			 */
 
+			System.out.println("Updating indicies");
 			IndexData.updateIndices();
 
 			// FIRST ADD SECTORS
+			System.out.println("Adding sectors");
 			for (int i = 1; i < data.size(); i++) {
 				String stock = data.get(i)[0].trim();
 				String sector = data.get(i)[6].trim();
@@ -99,7 +94,8 @@ public class Data {
 			}
 			// DONE
 
-			// FIRST ADD SECTORS
+			// NEXT ADD SUBSECTORS
+			System.out.println("Adding subsectors");
 			for (int i = 1; i < data.size(); i++) {
 				String stock = data.get(i)[0].trim();
 				String subsector = data.get(i)[7].trim();
@@ -113,7 +109,8 @@ public class Data {
 			}
 			// DONE
 
-			// SECOND ADD PREV_CLOSE
+			// NEXT ADD PREV_CLOSE
+			System.out.println("Adding prev_close");
 			for (int i = 1; i < data.size(); i++) {
 				if (SECTORS.containsKey(data.get(i)[6])) {
 					PREV_CLOSE.put(data.get(i)[0].trim(),
@@ -121,16 +118,18 @@ public class Data {
 				}
 			}
 			// DONE
-		} catch (Exception e) {
+		} catch (AssertionError e) {
 			// Obtained cached data.
 			try {
 				SECTORS = getMapFromFile(SECTOR_FILE);
 				SUBSECTORS = getMapFromFile(SUBSECTOR_FILE);
 				PREV_CLOSE = getMapFromFileDouble(PREV_CLOSE_FILE);
 			} catch (Exception e2) {
-				e.printStackTrace();
 				e2.printStackTrace();
 			}
+		} catch (Exception e) {
+			System.out.println("Error when parsing file");
+			e.printStackTrace();
 		}
 
 		System.out.print("\n\n");
@@ -232,6 +231,8 @@ public class Data {
 		}
 		System.out.println();
 	}
+	
+	static Scanner scanner = new Scanner(System.in);
 
 	@SuppressWarnings("all")
 	public static void main(String[] args) {
@@ -240,9 +241,11 @@ public class Data {
 
 		System.out.print("\n");
 
-		Scanner scanner = new Scanner(System.in);
-		String input;
-		while (!(input = scanner.nextLine()).equals("exit")) {
+		String input = "";
+		while (true) {
+			input = scanner.nextLine();
+			if (input.equals("exit"))
+				break;
 			switch (input.trim()) {
 			case "all":
 				for (String sector : SECTORS.keySet()) {
@@ -321,6 +324,11 @@ public class Data {
 			case "help":
 			case "h":
 				System.out.println("MAKE A HELP SLIDE ");
+				break;
+			case "Find stock data":
+			case "fsd":
+			case "8":
+				returnStockData();
 			}
 			STORE_ALL();
 			System.out.println("--------------------------------------------------------------------------------------------------------------\n");
@@ -516,5 +524,46 @@ public class Data {
 	 * 
 	 * TODO: CREATE A CONSTANTS.java repository for hashmaps and such
 	 */
+
+	 public static boolean returnStockData() {
+		System.out.println("Input Symbol to retrieve data");
+		String nl = scanner.nextLine();
+		nl = nl.toUpperCase();
+
+		System.out.println("Trying to find data for " + nl);
+
+		String sector = "";
+		for (String sec : SECTORS.keySet()) {
+			if (SECTORS.get(sec).contains(nl)) {
+				System.out.println("Found " + nl + " Sector: " + sec);
+				sector = sec;
+				break;
+			}
+		}
+
+		double prevClose = 0.0;
+		if (PREV_CLOSE.containsKey(nl)) {
+			prevClose = PREV_CLOSE.get(nl);
+			System.out.println("Found " + nl + " Previous close: " + prevClose);
+		}
+
+		if (sector == "" || prevClose == 0.0) {
+			System.out.println("Couldn't find some data...");
+		}
+
+		System.out.println("Please confirm that above data is correct for " + nl + " (y/n)");
+		String tmp = scanner.nextLine();
+		if (tmp.contains("y")) {
+			System.out.println(SECTORS.get(sector));
+			Stock s = StockData.CollectStockData(nl);
+			if (s != null) {
+				System.out.println(s);
+			}
+			return true; // ran tried to obtain data
+		} else {
+			System.out.println("Breaking back to start");
+			return false;
+		}
+	 }
 
 }

@@ -78,20 +78,18 @@ public class IndexData {
 
 	private static void update(File file, String url, Map<Date, Double> m) {
 		// UPDATE FILE WITH URL OF INDEX (STORE WITH <Date, Double> // price correlating with a date
-//		try {
-//			URL urlIndex = new URL(url);
-//			BufferedReader in = new BufferedReader(new InputStreamReader(urlIndex.openStream()));
-//			ArrayList<String[]> data = new ArrayList<>();
-//			String x = null;
-//			while ((x = in.readLine()) != null) {
-//				data.add(x.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
-//			}
-//			System.out.println(data.get(0).toString());
-//		} catch (Exception e) {
-//			System.out.println("FAILED LIFE");
-//		}
+		try {
+			URL urlIndex = new URL(url);
+			BufferedReader in = new BufferedReader(new InputStreamReader(urlIndex.openStream()));
+			ArrayList<String[]> data = new ArrayList<>();
+			String x = null;
+			while ((x = in.readLine()) != null) {
+				data.add(x.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
+			}
+			System.out.println(data.get(0).toString());
+		} catch (Exception e) {
+			System.out.println("FAILED LIFE");
+		}
 	}
-	
-	// TODO: have all dates of index that correlate with dates of stocks
 
 }
