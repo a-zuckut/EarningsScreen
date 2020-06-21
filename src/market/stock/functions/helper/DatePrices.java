@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import market.statistics.BasicFunctions;
 
 public class DatePrices {
-
 	private static final File date_to_price_around_earnings = new File("src/market/stock/sector/data/date_to_price.txt");
 	
 	public static Map<String, Map<Date[], Double[]>> DATE_TO_PRICE;

@@ -1,17 +1,12 @@
 package market.data_retrieval;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import market.stock.functions.EarningsFinder;
-
 public class StockData {
-
 	// GET DATA FROM:
 	// http://www.nasdaq.com/symbol/ + STOCK_SYMBOL (get symbols from
 	// stock.earnings)
@@ -25,7 +20,6 @@ public class StockData {
 		String init = "https://old.nasdaq.com/symbol/";
 		if (symbol != null) {
 			String uri = init + symbol;
-			System.out.println("Scraping for data: " + uri);
 			StringBuilder sb = new StringBuilder();
 			try {
 				URL stockURL = new URL(uri);
@@ -61,75 +55,59 @@ public class StockData {
 		int is = html.indexOf("https://old.nasdaq.com/symbol/", i);
 		int tmp = html.indexOf("\">", is);
 		int tmp2 = html.indexOf("</a", tmp);
-
 		String symbol = html.substring(tmp + "\">".length(), tmp2);
-		System.out.println("Symbol: " + symbol);
 
 		int i1 = html.indexOf("<div id=\"qwidget_lastsale\" class=\"qwidget-dollar\">");
 		int len = "<div id=\"qwidget_lastsale\" class=\"qwidget-dollar\">".length();
 		int i2 = html.indexOf("</div>", i1);
-		String Last_Price = html.substring(i1 + len + 1, i2); // + 1 to get rid of $
-		// System.out.println("Last Price: " + Last_Price);
+		String lp = html.substring(i1 + len + 1, i2); // + 1 to get rid of $
 
 		int i3 = html.indexOf("<b>Industry: </b>");
 		int i4 = html.indexOf("screening/companies-by-industry.aspx?industry=", i3);
 		len = "screening/companies-by-industry.aspx?industry=".length();
 		int i5 = html.indexOf("\">", i4);
-
 		String industry = html.substring(i4 + len, i5);
-		// System.out.println("Industry: " + industry);
+		if (i4 == -1) {
+			industry = "";
+		}
 
 		int i6 = html.indexOf("<b>P/E Ratio:");
 		int i7 = html.indexOf("<span>", i6);
 		int i8 = html.indexOf("</span>", i7);
 		len = "<span>".length();
-
-		String PE = html.substring(i7 + len, i8);
-		// System.out.println("P/E: " + PE);
+		String pe = html.substring(i7 + len, i8);
 
 		int i9 = html.indexOf("<b>Forward P/E (1y):");
 		int j1 = html.indexOf("<span>", i9);
 		int j2 = html.indexOf("</span>", j1);
 		len = "<span>".length();
-
-		String FORWARD_PE = html.substring(j1 + len, j2);
-		// System.out.println("ForwardPE: " + FORWARD_PE);
+		String fpe = html.substring(j1 + len, j2);
 
 		int j3 = html.indexOf("Earnings Per Share (EPS)", j2);
 		int j4 = html.indexOf("<span>", j3);
 		len = "<span>".length();
 		int j5 = html.indexOf("</span>", j4);
-
-		String EPS = html.substring(j4 + len, j5).replace("&nbsp;", "").replace("$", "");
-		// System.out.println("EPS: " + EPS);
+		String eps = html.substring(j4 + len, j5).replace("&nbsp;", "").replace("$", "");
 
 		int j9 = html.indexOf("peg-ratio\">PEG Ratio:");
 		int k1 = html.indexOf("<td>", j9);
 		len = "<td>".length();
 		int k2 = html.indexOf("</td>", k1);
-
-		String PEG = html.substring(k1 + len, k2);
-		// System.out.println("PEG: " + PEG);
+		String peg = html.substring(k1 + len, k2);
 
 		int k3 = html.indexOf("eps-forecast\">Annual EPS Est:");
 		int k4 = html.indexOf("<td>", k3);
 		len = "<td>".length();
 		int k5 = html.indexOf("</td>", k4);
-
 		String eps_forcast = html.substring(k4 + len, k5).replace("$", "");
-		// System.out.println("EPS Forcast: " + eps_forcast);
 
 		int k6 = html.indexOf("#MeanRec\">Mean Recommendation:");
 		int k7 = html.indexOf("<td>", k6);
 		len = "<td>".length();
 		int k8 = html.indexOf("</td>", k7);
-
-		String RECOMMENDATION = html.substring(k7 + len, k8);
-		// System.out.println("Recommendation: " + RECOMMENDATION);
-
-		return new Stock(symbol, Double.parseDouble(Last_Price), industry, Double.parseDouble(PE),
-				Double.parseDouble(FORWARD_PE), Double.parseDouble(EPS),
-				Double.parseDouble(PEG), Double.parseDouble(eps_forcast), Double.parseDouble(RECOMMENDATION));
+		String rec = html.substring(k7 + len, k8);
+		
+		return new Stock(symbol, lp, industry, pe, fpe, eps, peg, eps_forcast, rec);
 
 	}
 
@@ -146,6 +124,6 @@ public class StockData {
 		// Stock x = RetrieveStockFromHtml(str);
 		// System.out.println(x);
 
-		System.out.println(CollectStockData("AAPL"));
+		System.out.println(CollectStockData("DWMC"));
 	}
 }

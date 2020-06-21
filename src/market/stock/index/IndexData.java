@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IndexData {
-
 	private static final File nasdaq_hashmap_date_to_price = new File("src/market/stock/index/data/nasdaq.txt");
 	private static final File s_p500_hashmap_date_to_price = new File("src/market/stock/index/data/s+p500.txt");
 	private static final File dow_jones_hashmap_date_to_price = new File("src/market/stock/index/data/dow_jones.txt");
@@ -46,7 +44,7 @@ public class IndexData {
 		e = (Map<Date, Double>) ois.readObject();
 		ois.close();
 		fis.close();
-		System.out.println("Map<Date, Double> obtained from file");
+		System.out.println("Map<Date, Double> obtained from file -> indicies");
 		return e;
 	}
 
@@ -86,7 +84,6 @@ public class IndexData {
 			while ((x = in.readLine()) != null) {
 				data.add(x.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
 			}
-			System.out.println(data.get(0).toString());
 		} catch (Exception e) {
 			System.out.println("FAILED LIFE");
 		}

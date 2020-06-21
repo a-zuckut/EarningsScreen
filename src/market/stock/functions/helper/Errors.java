@@ -3,7 +3,6 @@ package market.stock.functions.helper;
 import java.util.ArrayList;
 
 public class Errors {
-
 	public static ArrayList<String> errors = new ArrayList<>();
 	
 	public static void PRINT_ERRORS() {

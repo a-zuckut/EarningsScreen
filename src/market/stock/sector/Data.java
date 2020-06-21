@@ -118,6 +118,8 @@ public class Data {
 				}
 			}
 			// DONE
+			
+			STORE_ALL(); // store all data now loaded
 		} catch (AssertionError e) {
 			// Obtained cached data.
 			try {

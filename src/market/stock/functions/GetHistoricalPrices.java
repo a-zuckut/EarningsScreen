@@ -20,7 +20,6 @@ import java.util.Map;
 import market.stock.functions.helper.Errors;
 
 public class GetHistoricalPrices {
-
 	private static final File prices = new File("src/market/stock/sector/data/historic_prices.txt");
 	private static final String INIT_STRING_GOOGLE = "http://finance.google.com/finance/historical?q=";
 	// https://stooq.com/q/d/l/?s=on.us&d1=20160323&d2=20160610
