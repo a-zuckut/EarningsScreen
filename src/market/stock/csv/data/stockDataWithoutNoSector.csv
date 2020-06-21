@@ -1246,7 +1246,7 @@ WALA,25.165,Finance,,,,,,
 WNEB,5.45,Finance,12.11,17,0.45,.02,0.51,1.5
 WBK,12.28,Finance,,,,5.18,,2.25
 WHG,16.68,Finance,21.38,,0.78,N/A,,
-WTM,874.87,Finance,2,822.16,,0.31,N/A,,3
+WTM,874.87,Finance,2822.16,,0.31,N/A,,3
 WLTW,188.85,Finance,23.14,17.46,8.16,.02,10.96,2.13
 WINS,27.24,Finance,,,,N/A,,
 WTFC,45.77,Finance,8.25,12.24,5.55,.72,6.03,1.8
@@ -1724,7 +1724,7 @@ GRWG,7.31,Consumer%2bServices,NE,92.50,-0.01,.09,0.1,1
 TV,5.73,Consumer%2bServices,NE,NE,-0.48,-1.29,0.42,3.38
 GSX,57.81,Consumer%2bServices,289.05,121.85,0.20,.12,,2
 GYRO,17,Consumer%2bServices,,,,N/A,,
-HRB,15.73,Consumer%2bServices,1,573,5.20,0.01,.52,0.84,2.67
+HRB,15.73,Consumer%2bServices,1573,5.20,0.01,.52,0.84,2.67
 HLG,46.8,Consumer%2bServices,,,,N/A,,
 HBI,11.35,Consumer%2bServices,7.99,19.68,1.42,5.96,1.76,2.9
 HASI,29.17,Consumer%2bServices,22.27,23.37,1.31,8.99,1.18,1.4
@@ -1923,7 +1923,7 @@ OUT,16.02,Consumer%2bServices,16.52,20.76,0.97,2.30,2.33,1.86
 OSTK,24.71,Consumer%2bServices,NE,,-2.71,N/A,,1
 PAE,11.24,Consumer%2bServices,,,,.02,0.07,1.33
 PAEWW,2.9,Consumer%2bServices,,,,,,
-PZZA,83.1,Consumer%2bServices,4,155,55.74,0.02,6.97,1.17,1.92
+PZZA,83.1,Consumer%2bServices,4155,55.74,0.02,6.97,1.17,1.92
 PGRE,7.86,Consumer%2bServices,NE,8.44,-0.17,7.03,0.98,1.75
 PK,10.71,Consumer%2bServices,NE,50,-1.96,.05,2.88,3
 PRTY,1.8,Consumer%2bServices,NE,NE,-11.19,-1.38,0.45,3
@@ -2636,7 +2636,7 @@ ELP,12.25,Public%2bUtilities,6.84,11.55,1.79,.01,,3
 CNSL,6.06,Public%2bUtilities,151.5,,0.04,N/A,,3
 ED,71.44,Public%2bUtilities,18.41,17.41,3.88,8.71,4.37,3.3
 CWCO,14.47,Public%2bUtilities,,,,3.36,0.56,1
-CEQP,15.6,Public%2bUtilities,6.72,1,595,2.32,1.60,0.01,2.2
+CEQP,15.6,Public%2bUtilities,6.72,1595,2.32,1.60,0.01,2.2
 DZSI,8.81,Public%2bUtilities,NE,NE,-0.95,-.05,0.1,1
 DCP,12.93,Public%2bUtilities,NE,10.15,-3.95,.01,1.04,3.2
 D,81.72,Public%2bUtilities,37.15,19.52,2.20,4.14,4.24,2.45
@@ -2986,7 +2986,7 @@ LIN,208.05,Basic%2bIndustries,48.05,28.21,4.33,2.56,7.34,1.47
 LAC,4.54,Basic%2bIndustries,10.09,NE,0.45,-.01,-0.22,1
 LTHM,7.67,Basic%2bIndustries,34.86,60,0.22,6.25,0.42,3.17
 LOOP,9.07,Basic%2bIndustries,NE,NE,-0.39,-.02,-0.38,1
-LPX,24.36,Basic%2bIndustries,2,436,40.63,0.01,.04,0.37,1.57
+LPX,24.36,Basic%2bIndustries,2436,40.63,0.01,.04,0.37,1.57
 LXU,1.12,Basic%2bIndustries,NE,NE,-3.75,.00,-3.06,
 LXFR,13.83,Basic%2bIndustries,29.43,17.70,0.47,1.36,1.3,1
 LYB,66.54,Basic%2bIndustries,8.53,13.50,7.80,2.00,9.62,2.44
@@ -3596,7 +3596,7 @@ INO,14.27,Health%2bCare,NE,NE,-1.19,-.02,-1.16,1.75
 INSM,28.92,Health%2bCare,NE,NE,-2.82,-.01,-3.01,1.1
 INSP,96.02,Health%2bCare,NE,NE,-1.71,-1.73,-1.4,1.7
 NSPR,0.4888,Health%2bCare,NE,NE,-3.85,.00,-4.8,1
-PODD,199.52,Health%2bCare,2,494,1,895,0.08,1.90,0.19,2.19
+PODD,199.52,Health%2bCare,2494,1895,0.08,1.90,0.19,2.19
 NTEC,0.339,Health%2bCare,NE,NE,-1.17,.00,-1.09,3
 IART,49.32,Health%2bCare,159.1,27.90,0.31,3.16,2.74,2.42
 NTLA,21.17,Health%2bCare,NE,NE,-2.25,-.01,-2.11,1.88
@@ -4503,7 +4503,7 @@ AOSL,10.77,Technology,NE,27.90,-0.16,.03,0.7,3
 GOOG,1431.72,Technology,28.89,34.63,49.55,2.15,51.56,1.17
 GOOGL,1424.64,Technology,28.75,34.58,49.55,2.15,51.56,1.17
 ALTR,37.84,Technology,NE,NE,-0.20,-3.91,0.22,3.6
-AYX,163.56,Technology,3,271.2,NE,0.05,-29.59,0.56,1.69
+AYX,163.56,Technology,3271.2,NE,0.05,-29.59,0.56,1.69
 AMBA,48.9,Technology,NE,NE,-1.28,-2.30,-1.33,2.5
 DOX,60.17,Technology,16.48,15.16,3.65,1.78,4.07,1.67
 AMRH,1.74,Technology,,,,N/A,,
@@ -4528,7 +4528,7 @@ ASML,360.67,Technology,51.97,49.36,6.94,2.17,6.89,1.63
 AZPN,100.53,Technology,29.92,33.94,3.36,.03,3.77,1.67
 ALOT,6.75,Technology,112.5,173.25,0.06,14.44,,3
 ASUR,6.67,Technology,3.32,39.12,2.01,2.79,0.33,1.2
-TEAM,172.64,Technology,NE,1,366.38,-0.87,60.38,-0.17,1.35
+TEAM,172.64,Technology,NE,1366.38,-0.87,60.38,-0.17,1.35
 ATOM,10.75,Technology,NE,NE,-0.83,-.01,-0.84,1
 AEYE,9.9,Technology,NE,NE,-0.89,-.01,-0.97,1.35
 JG,1.58,Technology,NE,,-0.17,N/A,,
@@ -4747,7 +4747,7 @@ ITW,170.88,Technology,22.16,32.85,7.71,4.33,7.75,2.58
 IMMR,5.98,Technology,NE,NE,-0.44,-8.21,-0.56,1.5
 IGC,0.6149,Technology,NE,,-0.16,N/A,,
 INFY,9.16,Technology,16.65,18.44,0.55,1.84,0.55,2.33
-IR,28.81,Technology,72.03,2,938,0.40,370.49,0.76,2.09
+IR,28.81,Technology,72.03,2938,0.40,370.49,0.76,2.09
 INOD,1.37,Technology,NE,,-0.06,N/A,,
 ISSC,5.03,Technology,35.93,,0.14,N/A,,
 INOV,19.47,Technology,216.33,44.41,0.09,2.47,0.41,2.11
@@ -5102,7 +5102,7 @@ ZBRA,264.41,Technology,27.83,27.34,9.50,.03,12.07,2.22
 ZDGE,1.24,Technology,NE,,-0.22,N/A,,
 ZEN,81.25,Technology,NE,NE,-1.51,-1.84,-1.19,1.65
 ZIXI,7.2,Technology,NE,18.32,-0.36,1.22,0.15,1.2
-ZM,243.48,Technology,1,432.24,294.60,0.17,11.78,0.09,2.09
+ZM,243.48,Technology,1432.24,294.60,0.17,11.78,0.09,2.09
 ZI,45.37,Technology,,,,N/A,,
 ZS,108.57,Technology,NE,NE,-0.55,-3.71,-0.12,2.11
 ZUO,13.01,Technology,NE,NE,-0.71,-.02,-0.74,2.62
@@ -5133,7 +5133,7 @@ AHI,0,Consumer%2bNon-Durables,,,,,,
 BGS,24.36,Consumer%2bNon-Durables,17.91,11.30,1.36,.01,1.64,2.5
 BRBR,18.66,Consumer%2bNon-Durables,,,,9.18,999,1.38
 BERY,44.27,Consumer%2bNon-Durables,14.33,10.80,3.09,1.08,3.41,1.64
-BYND,158.28,Consumer%2bNon-Durables,NE,1,318.33,-0.16,1.32,-0.04,2.93
+BYND,158.28,Consumer%2bNon-Durables,NE,1318.33,-0.16,1.32,-0.04,2.93
 BHAT,1.26,Consumer%2bNon-Durables,,,,N/A,,
 SAM,533.82,Consumer%2bNon-Durables,61.93,53.50,8.62,.05,9.17,1.8
 LND,3.68,Consumer%2bNon-Durables,7.22,,0.51,N/A,,
